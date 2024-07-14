@@ -1,5 +1,4 @@
 
-
 #include <Servo.h>
 #include <SimpleKalmanFilter.h>
 #include <SoftwareSerial.h>
@@ -46,16 +45,16 @@ void manhinh()      // Màn hình chính
   lcd.setCursor(0, 0);
   lcd.print("NO FIRE DETECTED"); 
   lcd.setCursor(0, 1);
-  lcd.print("Stellaron Hunters");
+  lcd.print("GAS: ");
   lcd.setCursor(5, 1);
-  
+  lcd.print(analogRead(A0));
 }
 
 void canhbao()      // Màn hình cảnh báo
 {
   lcd.clear();
   lcd.setCursor(0, 0);
-  lcd.print("    WARNING!    ");
+  lcd.print("    WARNING    ");
 }
 
 void menu_tong()    // Hiển thị menu
@@ -304,7 +303,7 @@ void loop()
         buz_on();
         canhbao();        // Màn hình cảnh báo
         lcd.setCursor(0, 1);
-        lcd.print(" RO RI KHI GAS ");
+        lcd.print(" GAS LEAK DETECTED ");
         delay(200);
         if (t<=2) { 
           callNumber1();        
@@ -324,7 +323,7 @@ void loop()
         buz_on();
         canhbao();        // Màn hình cảnh báo
         lcd.setCursor(0, 1);
-        lcd.print(" FIRE DETECTED");
+        lcd.print(" GAS LEAK DETECTED ");
         delay(200);
         if (t<=2) { 
           callNumber1();
@@ -350,7 +349,7 @@ void loop()
         buz_on();
         canhbao();        // Màn hình cảnh báo
         lcd.setCursor(0, 1);
-        lcd.print(" FIRE DETECTED");
+        lcd.print("FIRE DETECTED");
         delay(200);
         if (t<=2) { 
           callNumber1();
@@ -660,19 +659,19 @@ void SendMessage (int tipe)                                     // chuong trình
   switch (tipe) 
   {
     case 0:
-      sim.println("He Thong Phat Hien Co Lua !!!");
+      sim.println("SYSTEM HAS DETECTED FIRE !!!");
       delay(100);
       sim.println((char)26);
       delay(500);
       break;
     case 1:
-      sim.println("He Thong Phat Hien Khi Gas Vuot Nguong !!!");
+      sim.println("SYSTEM HAS DETECTED OVERLIMIT GAS !!!");
       delay(100);
       sim.println((char)26);
       delay(500);
       break;
     case 2:
-      sim.println("He Thong Canh Bao Ro Ri Khi Gas, Co Chay. NGUY HIEM !!!");
+      sim.println("WARNING, ONGOING FIRE AND GAS LEAKED, DANGER !!!");
       delay(100);
       sim.println((char)26);
       delay(500);
